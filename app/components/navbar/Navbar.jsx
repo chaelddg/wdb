@@ -5,7 +5,7 @@ import Container from '../Container';
 import Logo from './Logo';
 import NavMenu from './NavMenu';
 
-function Navbar(props) {
+function Navbar({ currentUser }) {
   return (
     <div
       className='
@@ -34,7 +34,7 @@ function Navbar(props) {
             '
           >
             <Logo />
-            <NavMenu />
+            <NavMenu currentUser={currentUser} />
           </div>
         </Container>
       </div>

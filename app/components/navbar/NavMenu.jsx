@@ -2,13 +2,16 @@
 
 import React, { useState, useCallback } from 'react';
 import { AiOutlineMenu } from 'react-icons/ai';
+import { signOut } from 'next-auth/react';
 import NavMenuItem from './NavMenuItem';
 import Avatar from '../Avatar';
 import UserMenuItem from './MenuItem';
 import useLoginModal from '@/app/hooks/useLoginModal';
 import useRegisterModal from '@/app/hooks/useRegisterModal';
 
-const NavMenu = () => {
+const NavMenu = ({
+  currentUser
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
@@ -45,8 +48,8 @@ const NavMenu = () => {
         >
           <AiOutlineMenu />
           <div className='hidden md:block'>
-            <Avatar
-              src="/images/placeholder.jpg"
+            <Avatar 
+              src={currentUser?.image}
             />
           </div>
         </div>
@@ -69,10 +72,28 @@ const NavMenu = () => {
           '
         >
           <div className='flex flex-col cursor-pointer'>
-            <>
-              <UserMenuItem label="Login" onClick={loginModal.onOpen} />
-              <UserMenuItem label="Sign up" onClick={registerModal.onOpen} />
-            </>
+            {currentUser ? (
+              <>
+                <UserMenuItem 
+                  onClick={() => {}}
+                  label='Profile'
+                />
+                <UserMenuItem 
+                  onClick={() => {}}
+                  label='Settings'
+                />
+                <hr />
+                <UserMenuItem 
+                  onClick={() => signOut()}
+                  label='Logout'
+                />
+              </>
+            ): (
+              <>
+                <UserMenuItem label="Login" onClick={loginModal.onOpen} />
+                <UserMenuItem label="Sign up" onClick={registerModal.onOpen} />
+              </>
+            )}
           </div>
         </div>
       )}
