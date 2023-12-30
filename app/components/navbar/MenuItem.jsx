@@ -2,9 +2,10 @@
 
 import React from 'react';
 
-const UserMenuItem = ({ label }) => {
+const UserMenuItem = ({ label, onClick }) => {
   return (
     <div
+      onClick={onClick}
       className='
         px-4
         py-3
