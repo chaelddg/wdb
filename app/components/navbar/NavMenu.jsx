@@ -23,11 +23,11 @@ const NavMenu = ({
   return (
     <div className='relative'>
       <div className='flex flex-row items-center gap-3'>
-        <NavMenuItem item="Home" />
-        <NavMenuItem item="Spa" />
-        <NavMenuItem item="Services" />
-        <NavMenuItem item="About Us" />
-        <NavMenuItem item="Contact Us" />
+        <NavMenuItem item="Home" url=" " />
+        <NavMenuItem item="Spa" url="spa" />
+        <NavMenuItem item="Services" url="services" />
+        <NavMenuItem item="About Us" url="about" />
+        <NavMenuItem item="Contact Us" url="contact" />
         <div
           onClick={toggleOpen}
           className='

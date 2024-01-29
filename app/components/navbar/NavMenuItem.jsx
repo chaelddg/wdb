@@ -1,8 +1,10 @@
 'use client';
 
 import React from 'react';
+import { useRouter } from 'next/navigation';
 
-const NavMenuItem = ({ item }) => {
+const NavMenuItem = ({ item, url }) => {
+  const router = useRouter()
   return (
     <div
       className='
@@ -17,6 +19,7 @@ const NavMenuItem = ({ item }) => {
         cursor-pointer
         uppercase
       '
+      onClick={() => {router.push(`/${url}`)}}
     >
       {item}
     </div>    

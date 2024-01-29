@@ -1,37 +1,42 @@
-import ClientOnly from "./components/ClientOnly";
-import Container from "./components/Container";
-import ListingCard from "./components/listings/ListingCard";
+import React from 'react';
+import backgroundImage from "../public/images/home.jpeg";
 
 export default async function Home() {
-  let listings = [1,2,3];
-
-  // if (listings.length == 0) {
-  //   return null;
-  // }
-
+  
   return (
-    <ClientOnly>
-      <Container>
-        <div
-          className="
-            pt-24
-            grid
-            grid-cols-1
-            sm:grid-cols-2
-            md:grid-cols-3
-            lg:grid-cols-4
-            xl:grid-cols-5
-            2xl:grid-cols-6
-            gap-8
-          "
+    <div
+      style={{
+        // use the src property of the image object
+        backgroundImage: `url(${backgroundImage.src})`,
+        // other styles
+        backgroundPosition: "center",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        width: "100vw",
+        height: "100vh",
+        display: 'flex',
+        flexDirection: 'column', // Updated to column layout
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <h1 style={{fontSize: 140, fontWeight: 'bold', color: 'white'}}>Beyond Vision, Embrace the Healing Touch.</h1>
+      <div style={{ textAlign: 'center', marginTop: '20px' }}>
+        <button
+          style={{
+            padding: '15px 30px',
+            fontSize: '18px',
+            fontWeight: 'bold',
+            backgroundColor: '#6F4E37',  // You can set the background color
+            color: 'white',              // You can set the text color
+            border: 'none',
+            borderRadius: '5px',
+            cursor: 'pointer',
+          }}
         >
-          {listings.map((listing) => {
-            return (
-              <ListingCard key={listing} />
-            )
-          })}
-        </div>
-      </Container>
-    </ClientOnly>
-  )
+          BOOK AN APPOINTMENT
+        </button>
+      </div>
+    </div>
+  );
 }
