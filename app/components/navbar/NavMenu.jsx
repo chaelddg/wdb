@@ -8,6 +8,7 @@ import Avatar from '../Avatar';
 import UserMenuItem from './MenuItem';
 import useLoginModal from '@/app/hooks/useLoginModal';
 import useRegisterModal from '@/app/hooks/useRegisterModal';
+import { useRouter } from 'next/navigation';
 
 const NavMenu = ({
   currentUser
@@ -20,6 +21,7 @@ const NavMenu = ({
     setIsOpen((value) => !value);
   }, []);
 
+  const router = useRouter()
   return (
     <div className='relative'>
       <div className='flex flex-row items-center gap-3'>
@@ -75,7 +77,7 @@ const NavMenu = ({
             {currentUser ? (
               <>
                 <UserMenuItem 
-                  onClick={() => {}}
+                  onClick={() => {router.push(`profile`)}}
                   label='Profile'
                 />
                 <UserMenuItem 
