@@ -29,9 +29,14 @@ const RegisterModal = () => {
     }
   } = useForm({
     defaultValues: {
-      name: '',
+      fname: '',
+      mname: '',
+      lname: '',
+      gender: '',
       email: '',
-      password: ''
+      password: '',
+      PhoneNum: '',
+      Address: ''
     }
   });
 
@@ -70,8 +75,24 @@ const RegisterModal = () => {
         required
       />
       <Input
-        id='name'
-        label='Name'
+        id='fname'
+        label='First name'
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
+      />
+      <Input
+        id='mname'
+        label='Middle name'
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
+      />
+      <Input
+        id='lname'
+        label='Last name'
         disabled={isLoading}
         register={register}
         errors={errors}
@@ -86,11 +107,27 @@ const RegisterModal = () => {
         errors={errors}
         required
       />
+      <Input
+        id='PhoneNum'
+        label='Phone Number'
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
+      />
+      <Input
+        id='Address'
+        label='Current Address'
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
+      />
     </div>
   )
 
   const footerContent = (
-    <div className='flex flex-col gap-4 mt-3'>
+    <div className='flex flex-col gap-1 mt-3'>
       <hr />
       <Button 
         outline
@@ -126,16 +163,18 @@ const RegisterModal = () => {
   )
 
   return (
-    <Modal 
-      disabled={isLoading}
-      isOpen={registerModal.isOpen}
-      title='Register'
-      actionLabel='Continue'
-      onClose={registerModal.onClose}
-      onSubmit={handleSubmit(onSubmit)}
-      body={bodyContent}
-      footer={footerContent}
-    />
+    
+      <Modal 
+        disabled={isLoading}
+        isOpen={registerModal.isOpen}
+        title='Register'
+        actionLabel='Continue'
+        onClose={registerModal.onClose}
+        onSubmit={handleSubmit(onSubmit)}
+        body={bodyContent}
+        footer={footerContent}
+      />
+    
   )
 }
 
