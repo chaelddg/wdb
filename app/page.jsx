@@ -1,10 +1,16 @@
 'use client';
 import React from 'react';
 import backgroundImage from "../public/images/home.jpeg";
+import { useRouter } from 'next/navigation';
+import About from './about/page';
+
 
 export default async function Home() {
   
+  const router = useRouter();
+  
   return (
+    <>
     <div
       style={{
         // use the src property of the image object
@@ -34,10 +40,16 @@ export default async function Home() {
             borderRadius: '5px',
             cursor: 'pointer',
           }}
+          onClick={() => {router.push(`spa`)}}
+          
         >
           BOOK AN APPOINTMENT
         </button>
       </div>
+      
     </div>
+    <About />
+    </>
+    
   );
 }
