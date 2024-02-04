@@ -2,13 +2,15 @@
 import ClientOnly from "../components/ClientOnly";
 import Container from "../components/Container";
 import ListingCard from "../components/listings/ListingCard";
+import getListings from "../actions/getListings";
 
-const Spa = () => {
-  let listings = [1,2,3,4,5];
-
-  // if (listings.length == 0) {
-  //   return null;
-  // }
+const Spa = async () => {
+  // let listings = [1,2,3,4,5];
+  let listings = await getListings();
+  console.log('listings => async', listings)
+  if (listings.length == 0) {
+    return null;
+  }
 
   return (
     <ClientOnly>
@@ -26,11 +28,7 @@ const Spa = () => {
             gap-8
           "
         >
-          {listings.map((listing) => {
-            return (
-              <ListingCard key={listing} />
-            )
-          })}
+          <ListingCard listings={listings} />
         </div>
       </Container>
     </ClientOnly>

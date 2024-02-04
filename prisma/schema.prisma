@@ -48,15 +48,16 @@ model Account {
   @@unique([provider, providerAccountId])
 }
 
-model spa {
-  spa_id Int @id @default(autoincrement())
-  spa_name String?
-  spa_address String?
-  spa_username String? @unique
-  spa_password String?
-  spa_email String? @unique
-  spa_phoneNum String?
-  spa_desc String?
-  spa_image String?
-
+model Spa {
+  id Int @id @default(autoincrement())
+  name String?
+  address String?
+  username String? @unique
+  password String?
+  email String? @unique
+  phoneNum String?
+  desc String?
+  image String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
