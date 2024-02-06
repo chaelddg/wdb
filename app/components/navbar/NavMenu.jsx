@@ -65,7 +65,7 @@ const NavMenu = ({
             rounded-xl
             shadow-md
             w-[40vw]
-            md:w-3/4
+            md:w-1/4
             bg-white
             overflow-hidden
             right-0

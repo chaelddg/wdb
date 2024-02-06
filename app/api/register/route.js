@@ -8,7 +8,7 @@ export async function POST(
   const body = await request.json();
   const {
     email,
-    fname,
+    name,
     mname,
     lname,
     gender,
@@ -23,7 +23,7 @@ export async function POST(
   const user = await prisma.user.create({
     data: {
       email,
-      fname,
+      name,
       mname,
       lname,
       gender,

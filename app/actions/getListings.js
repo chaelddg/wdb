@@ -1,7 +1,7 @@
 import prisma from "@/app/libs/prismadb";
 export default async function getListings() {
   try {
-    const listings = await prisma.spa.findMany({
+    const listings = await prisma.Spa.findMany({
       orderBy: {
         createdAt: 'desc'
       }
