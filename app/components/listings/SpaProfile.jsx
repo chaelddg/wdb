@@ -1,11 +1,13 @@
 // components/SpaProfile.js
 'use client'
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
+
 
 import CardGridReview from '../CardGridReview';
 
 const SpaProfile = () => {
+    const router = useRouter();
     const [spa, setSpa] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -33,6 +35,8 @@ const SpaProfile = () => {
         return <div>Loading...</div>;
     }
 
+    
+
     return (
         <div style={{ backgroundColor: "#E2D9D2" }} className=''>
             {spa ? (
@@ -53,7 +57,7 @@ const SpaProfile = () => {
                                     Rating - 4.5(37 Reviews)
                                 </div>
                             </div>
-                            <button className="bg-amber-800 hover:bg-amber-900 text-white font-bold py-2 px-4 rounded">
+                            <button className="bg-amber-800 hover:bg-amber-900 text-white font-bold py-2 px-4 rounded" onClick={() => router.push(`/bookform?listingId=${spa.id}&spaname=${spa.name}&image=${spa.image}`)} >
                                 Book Here
                             </button>
                         </div>  

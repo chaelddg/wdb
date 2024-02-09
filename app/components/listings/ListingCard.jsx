@@ -8,7 +8,7 @@ const ListingCard = ({ listings }) => {
   const router = useRouter();
 
   const handleDiscoveryClick = (listingId) => {
-    router.push(`/spa/profile?listingId=${listingId}`);
+    router.push(`/spaProfile?listingId=${listingId}`);
   };
 
   return (

@@ -61,3 +61,10 @@ model Spa {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 }
+
+model massage {
+  id Int @id @default(autoincrement())
+  type String?
+  duration Int
+  price Decimal @db.Decimal(10, 2)
+}
