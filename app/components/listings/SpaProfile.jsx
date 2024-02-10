@@ -2,7 +2,8 @@
 'use client'
 import { useSearchParams, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-
+import useLoginModal from '@/app/hooks/useLoginModal';
+import { getSession } from 'next-auth/react';
 
 import CardGridReview from '../CardGridReview';
 
@@ -10,7 +11,7 @@ const SpaProfile = () => {
     const router = useRouter();
     const [spa, setSpa] = useState(null);
     const [loading, setLoading] = useState(true);
-
+    const loginModal = useLoginModal();
     const searchParams = useSearchParams();
     const search = searchParams.get('listingId');
 
@@ -30,6 +31,18 @@ const SpaProfile = () => {
 
         fetchSpa();
     }, [search]);
+    const handleClick = async (spa) => {
+        
+        const session = await getSession();
+      
+        if (!session) {
+          // Show the login modal if no session
+          loginModal.onOpen();
+        } else {
+          // Proceed to the route with session information
+          router.push(`/bookform?listingId=${spa.id}&spaname=${spa.name}&image=${spa.image}`);
+        }
+      };
 
     if (loading) {
         return <div>Loading...</div>;
@@ -57,7 +70,7 @@ const SpaProfile = () => {
                                     Rating - 4.5(37 Reviews)
                                 </div>
                             </div>
-                            <button className="bg-amber-800 hover:bg-amber-900 text-white font-bold py-2 px-4 rounded" onClick={() => router.push(`/bookform?listingId=${spa.id}&spaname=${spa.name}&image=${spa.image}`)} >
+                            <button className="bg-amber-800 hover:bg-amber-900 text-white font-bold py-2 px-4 rounded" onClick={() => handleClick(spa)} >
                                 Book Here
                             </button>
                         </div>  

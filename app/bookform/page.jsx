@@ -85,7 +85,7 @@ const book = () => {
                                         <h1 className="font-bold text-lg mt-5">Additional Fee: 00.00</h1>
                                     </div>
                                     <div className="w-full max-w-5xl">
-                                        <h1 className="font-bold text-lg mt-5"> {type ? (<div>Total Fee: {type.price}</div>) : (
+                                        <h1 className="font-bold text-lg mt-5"> {type ? (<div>Total Fee: {parseFloat(type.price).toFixed(2)}</div>) : (
                                             <div>Total Fee: 0.00</div>
                                         )}</h1>
                                     </div>
