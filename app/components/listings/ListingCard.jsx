@@ -1,15 +1,46 @@
 'use client'
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '../Button';
 import { useRouter } from 'next/navigation';
+import { getSession } from 'next-auth/react';
+import toast from 'react-hot-toast';
 
 const ListingCard = ({ listings }) => {
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
 
   const handleDiscoveryClick = (listingId) => {
-    router.push(`/spaProfile?listingId=${listingId}`);
+    if(user){
+    router.push(`/spaProfile?listingId=${listingId}&user=${user.id}`);
+    }else{
+      toast.error('Login to Discover');
+    }
   };
+
+  useEffect(() => {
+    const fetchType = async () => {
+      const session = await getSession();
+      if (session) {
+        const user1 = session.user;
+        try {
+          const response = await fetch(`/api/currentuser/${user1.email}`);
+          const Data = await response.json();
+
+          console.log(user1.email);
+          setUser(Data);
+          setLoading(false);
+        } catch (error) {
+          console.error('Error fetching massage data:', error);
+          setLoading(false);
+        }
+      }else{
+        toast.error('please Login');
+      }
+    };
+    fetchType();
+  }, []);
 
   return (
     <div>
@@ -21,7 +52,7 @@ const ListingCard = ({ listings }) => {
           cursor-pointer
           group
         '
-          onClick={() => { }}
+          onClick={() => handleDiscoveryClick(listing.id)}
         >
           <div
             className='

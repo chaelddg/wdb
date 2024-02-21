@@ -9,6 +9,7 @@ import UserMenuItem from './MenuItem';
 import useLoginModal from '@/app/hooks/useLoginModal';
 import useRegisterModal from '@/app/hooks/useRegisterModal';
 import { useRouter } from 'next/navigation';
+import details from '@/app/bookdetails/page';
 
 const NavMenu = ({
   currentUser
@@ -81,7 +82,11 @@ const NavMenu = ({
                   label='Profile'
                 />
                 <UserMenuItem 
-                  onClick={() => {}}
+                  onClick={() => {router.push(`details`)}}
+                  label='My Order'
+                />
+                <UserMenuItem 
+                  onClick={() => {router.push(`settings`)}}
                   label='Settings'
                 />
                 <hr />

@@ -14,6 +14,9 @@ const SpaProfile = () => {
     const loginModal = useLoginModal();
     const searchParams = useSearchParams();
     const search = searchParams.get('listingId');
+    const userId = searchParams.get('user');
+    const [data, setData] = useState(null);
+    const [data2, setData2] = useState(null);
 
     useEffect(() => {
         const fetchSpa = async () => {
@@ -31,31 +34,53 @@ const SpaProfile = () => {
 
         fetchSpa();
     }, [search]);
+
+    useEffect(() => {
+        const fetchType = async () => {
+            try {
+                const response = await fetch(`/api/bookdetail/${userId}`);
+                const Data = await response.json();
+
+                setData(Data.booking);
+                setData2(Data.spa);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error fetching massage data:', error);
+                setLoading(false);
+            }
+        };
+        fetchType();
+    }, [userId]);
     const handleClick = async (spa) => {
-        
+
         const session = await getSession();
-      
+
         if (!session) {
-          // Show the login modal if no session
-          loginModal.onOpen();
+            // Show the login modal if no session
+            loginModal.onOpen();
         } else {
-          // Proceed to the route with session information
-          router.push(`/bookform?listingId=${spa.id}&spaname=${spa.name}&image=${spa.image}`);
+            // Proceed to the route with session information
+            if(data){
+                router.push(`/bookdetails?spaId=${data.spaId}&spaname=${data2.name}&type=${data.massageId}&address=${data.address}&user=${data.userId}`);
+            }else{
+                router.push(`/bookform?listingId=${spa.id}&spaname=${spa.name}&image=${spa.image}&spaNumber=${spa.phoneNum}&gcashname=${spa.gcashname}`);
+            }
+            
         }
-      };
+    };
 
     if (loading) {
         return <div>Loading...</div>;
     }
 
-    
+
 
     return (
         <div style={{ backgroundColor: "#E2D9D2" }} className=''>
             {spa ? (
 
                 <div className="min-h-screen flex flex-col items-center place-content-center">
-                <h1 className="text-3xl mb-8">{spa.name}</h1>
+                    <h1 className="text-3xl mb-8">{spa.name}</h1>
                     <div className="grid md:grid-cols-3 w-full max-w-5xl">
                         <img className="col-span-1 rounded-lg" src={"/images/" + (spa.image || "placeholder.jpg")} alt="image" />
                         <div className="col-span-2 pl-2">
@@ -73,7 +98,7 @@ const SpaProfile = () => {
                             <button className="bg-amber-800 hover:bg-amber-900 text-white font-bold py-2 px-4 rounded" onClick={() => handleClick(spa)} >
                                 Book Here
                             </button>
-                        </div>  
+                        </div>
                     </div>
                     <div className="w-full max-w-5xl">
                         {/* Other content or components */}

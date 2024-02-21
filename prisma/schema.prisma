@@ -27,6 +27,7 @@ model User {
   updatedAt DateTime @updatedAt
 
   accounts Account[]
+  booking Booking[]
 }
 
 model Account {
@@ -56,15 +57,39 @@ model Spa {
   password String?
   email String? @unique
   phoneNum String?
+  gcashname String?
   desc String?
   image String?
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
+
+  bookings Booking[]
 }
 
-model massage {
+model Massage {
   id Int @id @default(autoincrement())
   type String?
   duration Int
   price Decimal @db.Decimal(10, 2)
+  bookings Booking[]
 }
+
+model Booking {
+  id Int @id @default(autoincrement())
+  massageId Int
+  massage Massage @relation(fields: [massageId], references: [id])
+  spaId Int
+  spa Spa @relation(fields: [spaId], references: [id])
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+  address String?
+  status Int @default(0)
+  bookingStatus BookingStatus @relation(fields: [status], references: [id])
+  
+}
+model BookingStatus {
+  id Int @id 
+  status String?
+  bookings Booking[]
+}
+
