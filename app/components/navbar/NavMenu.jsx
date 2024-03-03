@@ -9,7 +9,7 @@ import UserMenuItem from './MenuItem';
 import useLoginModal from '@/app/hooks/useLoginModal';
 import useRegisterModal from '@/app/hooks/useRegisterModal';
 import { useRouter } from 'next/navigation';
-import details from '@/app/bookdetails/page';
+
 
 const NavMenu = ({
   currentUser
@@ -49,9 +49,11 @@ const NavMenu = ({
             transition
           '
         >
-          <AiOutlineMenu />
+          <div>
+            <AiOutlineMenu />
+          </div>
           <div className='hidden md:block'>
-            <Avatar 
+            <Avatar
               src={currentUser?.image}
             />
           </div>
@@ -77,25 +79,25 @@ const NavMenu = ({
           <div className='flex flex-col cursor-pointer'>
             {currentUser ? (
               <>
-                <UserMenuItem 
-                  onClick={() => {router.push(`profile`)}}
+                <UserMenuItem
+                  onClick={() => { router.push(`profile`) }}
                   label='Profile'
                 />
-                <UserMenuItem 
-                  onClick={() => {router.push(`details`)}}
+                <UserMenuItem
+                  onClick={() => { router.push(`details`) }}
                   label='My Order'
                 />
-                <UserMenuItem 
-                  onClick={() => {router.push(`settings`)}}
+                <UserMenuItem
+                  onClick={() => { router.push(`settings`) }}
                   label='Settings'
                 />
                 <hr />
-                <UserMenuItem 
+                <UserMenuItem
                   onClick={() => signOut()}
                   label='Logout'
                 />
               </>
-            ): (
+            ) : (
               <>
                 <UserMenuItem label="Login" onClick={loginModal.onOpen} />
                 <UserMenuItem label="Sign up" onClick={registerModal.onOpen} />

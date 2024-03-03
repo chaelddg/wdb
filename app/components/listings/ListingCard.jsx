@@ -28,15 +28,13 @@ const ListingCard = ({ listings }) => {
           const response = await fetch(`/api/currentuser/${user1.email}`);
           const Data = await response.json();
 
-          console.log(user1.email);
+          
           setUser(Data);
           setLoading(false);
         } catch (error) {
           console.error('Error fetching massage data:', error);
           setLoading(false);
         }
-      }else{
-        toast.error('please Login');
       }
     };
     fetchType();

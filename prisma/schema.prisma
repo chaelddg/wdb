@@ -28,6 +28,9 @@ model User {
 
   accounts Account[]
   booking Booking[]
+  feedback Feedback[]
+  
+
 }
 
 model Account {
@@ -64,6 +67,8 @@ model Spa {
   updatedAt DateTime @default(now())
 
   bookings Booking[]
+  therapists Therapist[]
+  feedback Feedback[]
 }
 
 model Massage {
@@ -85,6 +90,8 @@ model Booking {
   address String?
   status Int @default(0)
   bookingStatus BookingStatus @relation(fields: [status], references: [id])
+  therapistId Int?
+  therapist Therapist? @relation(fields: [therapistId], references: [id])
   
 }
 model BookingStatus {
@@ -93,3 +100,34 @@ model BookingStatus {
   bookings Booking[]
 }
 
+model Therapist {
+  id Int @id @default(autoincrement())
+  spaId Int
+  spa Spa @relation(fields: [spaId], references: [id])
+  fname String?
+  mname String?
+  lname String?
+  gender String?
+  address String?
+  status Int
+  therapistStatus therapistStatus @relation(fields: [status], references: [id])
+  updatedAt DateTime @db.Timestamp
+  bookings Booking[]
+}
+
+model therapistStatus {
+  id Int @id
+  status String?
+  therapist Therapist[]
+}
+
+model Feedback {
+  id Int @id @default(autoincrement())
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+  spaId Int
+  spa Spa @relation(fields: [spaId], references: [id])
+  feedback String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime? @db.Timestamp
+}

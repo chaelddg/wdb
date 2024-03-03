@@ -37,7 +37,7 @@ export async function POST(request) {
     // If an existing booking is found, return an error or handle it accordingly
     return new Response('Booking with status 0 already exists for this user', { status: 400 });
   }
-
+  
   // If no existing booking is found, create a new booking
   const book = await prisma.Booking.create({
     data: {
@@ -45,7 +45,7 @@ export async function POST(request) {
       massageId: parseInt(massageId),
       userId: user.id,
       status: parseInt(status),
-      address: address
+      address: address,
     }
   });
 

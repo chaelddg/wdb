@@ -17,14 +17,13 @@ const Book = () => {
     const gcashName = searchParams.get('gcashname');
     const router = useRouter();
 
-
-
     const [type, setType] = useState(null);
     const [loading, setLoading] = useState(true);
     const [selectedMassageType, setSelectedMassageType] = useState('0');
     const [address, setAddress] = useState('');
     const [selectedImage, setSelectedImage] = useState(null);
     const [user, setUser] = useState(null);
+    const [voucher, setVoucher] = useState(50);
 
     const handleMassageTypeChange = (event) => {
         setSelectedMassageType(event.target.value);
@@ -51,7 +50,8 @@ const Book = () => {
                 'Terms and conditions:\n' +
                 '1. This booking is subject to availability.\n' +
                 '2. You agree to pay the required fees.\n' +
-                '3. Cancellation may incur charges.\n\n' +
+                '3. Cancellation may incur charges.\n' +
+                '4. No cancelation once the book is accepted.\n\n' +
                 'Are you sure you want to proceed?'
             );
             if (isConfirmed) {
@@ -79,7 +79,7 @@ const Book = () => {
                     if (response.ok) {
                         console.log('Booking successful!');
                         toast.success("BOOKED");
-                        router.push(`/bookdetails?spaId=${spaId}&spaname=${spa}&ype=${selectedMassageType}&address=${address}&user=${user.id}`);
+                        router.push(`/bookdetails?spaId=${spaId}&spaname=${spa}&type=${selectedMassageType}&address=${address}&user=${user.id}`);
                         // Redirect or handle success as needed
                     } else {
                         console.error('Failed to book:', response.statusText);
@@ -190,11 +190,16 @@ const Book = () => {
                                     />
                                 </div>
                                 <div className="w-full max-w-5xl">
-                                    <h1 className="font-bold text-lg mt-5">Additional Fee: 00.00</h1>
+                                    <h1 className="font-bold text-lg mt-5">Additional Fee: ₱00.00</h1>
                                 </div>
                                 <div className="w-full max-w-5xl">
-                                    <h1 className="font-bold text-lg mt-5"> {type ? (<div>Total Fee: {parseFloat(type.price).toFixed(2)}</div>) : (
-                                        <div>Total Fee: 0.00</div>
+                                    <h1 className="font-bold text-lg mt-5"> {type ? (<div>Subtotal: ₱{parseFloat(type.price).toFixed(2)}</div>) : (
+                                        <div>Subtotal: ₱0.00</div>
+                                    )}</h1>
+                                </div>
+                                <div className="w-full max-w-5xl">
+                                    <h1 className="font-bold text-lg mt-5"> {type ? (<div>total: ₱{(parseFloat(type.price)-voucher).toFixed(2)}</div>) : (
+                                        <div>total: ₱0.00</div>
                                     )}</h1>
                                 </div>
                                 <div className="w-full max-w-5xl">

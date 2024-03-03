@@ -3,6 +3,7 @@ import React from 'react';
 import backgroundImage from "../public/images/home.jpeg";
 import { useRouter } from 'next/navigation';
 import About from './about/page';
+import Contact from './contact/page';
 
 
 export default function Home() {
@@ -49,6 +50,7 @@ export default function Home() {
 
       </div>
       <About />
+      <Contact />
     </>
 
   );
