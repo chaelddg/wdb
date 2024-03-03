@@ -28,9 +28,10 @@ function Navbar({ currentUser }) {
               flex
               flex-row
               items-center
-              justify-between
               gap-3
               md:gap-0
+              justify-end
+              md:justify-between
             '
           >
             <Logo />
